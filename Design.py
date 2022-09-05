@@ -1,3 +1,8 @@
+import pandas as pd
+
+columns = ['start', 'end']
+file1 = pd.read_csv("graph.csv", names=columns)
+
 G = dict()
 fp = open("Sample1.txt", 'r')
 for line in fp:
@@ -85,6 +90,15 @@ for i in G.keys():
     else:
         rightBucket.append(i)
     count+=1
+
+def graphVisualisation():
+    i3 = 0
+    for i1 in G.keys():
+        for i2 in G[i1]:
+            file1.loc[i3, 'start'] = i1
+            file1.loc[i3, 'end'] = i2
+            i3+=1
+    file1.to_csv("graph.csv", index=False)
 
 # initialising Gain Buckets
 def initialiseBucket():
@@ -208,6 +222,7 @@ def BackTrack():
     print("Final Net Cut: ", minCut)
 
 
+graphVisualisation()
 initialCut = FindCut()
 initialiseBucket()
 FindGain()
